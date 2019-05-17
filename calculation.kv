@@ -1,0 +1,256 @@
+
+#:import Factory kivy.factory.Factory
+
+#:set color_button (0.784, 0.4, 0.216, 1)  # brown
+#:set color_button_pressed (0.659, 0.3, 0.431, 1)  # darker brown
+#:set color_background_down '(0.4, 0.4, 0.4, 1)'  # purple
+
+
+<WrappedLabel@Label>:
+    size_hint_y: None
+    height: self.texture_size[1] + self.texture_size[1]/2
+    markup: True
+
+<GridLabel@Label>:
+    font_size: min(root.width, root.height) * .3
+
+<SpinnerLabel@SpinnerOption>:
+    background_color: color_button if self.state == 'down' else color_button_pressed
+    background_down: color_background_down
+
+<StatisticsSpinner@Spinner>:
+    background_color: color_button if self.state == 'normal' else color_button_pressed  
+    background_down: color_background_down
+    option_cls: Factory.get("SpinnerLabel")
+
+<CalculationRoot>:
+    orientation: 'vertical'
+    cg_screen_manager: cg_screen_manager
+    calculation_screen: calculation_screen
+    result_screen: result_screen
+    statistic_screen: statistic_screen
+    plot_screen: plot_screen
+    
+    ScreenManager:
+        id: cg_screen_manager
+        StartScreen:
+            name: 'StartScreen'
+        CalculationScreen:
+            id: calculation_screen
+            name: 'CalculationScreen'
+        StatisticScreen:
+            id: statistic_screen
+            name: 'StatisticScreen'
+        PlotScreen:
+            id: plot_screen
+            name: 'PlotScreen'
+        AboutScreen:
+            id: about_screen
+            name: 'AboutScreen'
+        ResultScreen:
+            id: result_screen
+            name: 'ResultScreen'
+
+<StartScreen@Screen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: root.width * .02, root.height * .02
+        spacing: min(root.width, root.height) * .02
+
+        WrappedLabel:
+            text: '[b] Calculation Game [/b]'
+            font_size: min(root.width, root.height) * .1
+
+        Button:
+            text: 'Calculate'
+            on_release: app.root.change_screen(self.text.lower())
+        Button:
+            text: 'Statistic'
+            on_release: app.root.change_screen(self.text.lower())
+        Button:
+            text: 'Settings'
+            on_release: app.open_settings()
+        Button:
+            text: 'About'
+            on_release: app.root.change_screen(self.text.lower())
+
+        Button:
+            text: 'Quit'
+            on_release: app.root.change_screen(self.text.lower())
+
+<AboutScreen@Screen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: root.width * .02, root.height * .02
+        spacing: min(root.width, root.height) * .02
+
+        WrappedLabel:
+            text: '[b] About [/b]'
+            halign: 'center'
+            font_size: min(root.width, root.height) * .1
+
+        ScrollView:
+            #do_scroll_x: False
+
+            Label:
+                size_hint: 1, None
+                size: root.width * .7, root.height
+                text: app.get_about_text()
+                halign: 'center'
+                markup: True
+                font_size: root.height / 20
+                text_size: self.width, None
+                center_y: .5
+                on_ref_press: app.onRefPress(*args)
+
+<ResultScreen@Screen>:
+    total_response_time: total_response_time
+    average_response_time: average_response_time
+    minimum_response_time: minimum_response_time
+    maximum_response_time: maximum_response_time
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: root.width * .02, root.height * .02
+        spacing: min(root.width, root.height) * .02
+
+        WrappedLabel:
+            text: '[b] Results [/b]'
+            halign: 'center'
+            font_size: min(root.width, root.height) * .1
+
+        GridLayout:
+            cols: 2
+
+
+            Label:
+                text: 'Total Response Time'
+            Label:
+                id: total_response_time
+                text: '20.5'
+
+            Label:
+                text: 'Average Response Time'
+            Label:
+                id: average_response_time
+                text: '0.7'
+
+            Label:
+                text: 'Minimum Response Time'
+            Label:
+                id: minimum_response_time
+                text: '0.5'
+
+            Label:
+                text: 'Maximum Response Time'
+            Label:
+                id: maximum_response_time
+                text: '1.2'
+
+        Button:
+            text: 'Main Menu'
+            on_release: app.root.change_screen('start')
+
+
+<CalculationScreen@Screen>: 
+    response_timer: response_timer
+    progress_label: progress_label
+    question_text: question_text
+    answer_text: answer_text
+    num_pad: num_pad
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: root.width * .02, root.height * .02
+        spacing: 10
+
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: root.width * .02, root.height * .02
+            spacing: 10
+            size_hint_y: .1
+                
+            ResponseTimer:
+                id: response_timer
+                text: ''
+                size_hint_x: .2
+                font_size: min(root.height, root.width) * .05
+                #pos_hint_x: 0.1
+                #pos_hint: {'center_x': .05, 'center_y': .05}
+
+            Label:
+                text: 'Your Ad Here!'
+                size_hint_x: .4
+
+            ProgressLabel:
+                id: progress_label
+                text: ''
+                size_hint_x: .2
+                font_size: min(root.height, root.width) * .05
+                #pos_hint_x: 0.9
+                #pos_hint: {'center_x': .05, 'center_y': .05}
+
+        WrappedLabel:
+            id: question_text
+            text: 'Happy Calculating'
+            font_size: min(root.height, root.width) * .1
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+
+            WrappedLabel:
+                id: answer_text
+                text: ''
+                font_size: min(root.height, root.width) * .1
+            
+        NumPad:
+            id: num_pad
+
+
+<StatisticScreen@Screen>:
+    stats_operation_spinner: stats_operation_spinner
+    stats_difficulty_spinner: stats_difficulty_spinner
+    stats_num_questions_button: stats_num_questions_button
+    BoxLayout:
+        orientation: 'vertical'
+        padding: root.width * .02, root.height * .02
+        spacing: min(root.width, root.height) * .02
+
+        WrappedLabel:
+            text: '[b] Statistics [/b]'
+            halign: 'center'
+            font_size: min(root.width, root.height) * .1
+
+        GridLayout:
+            size_hint: .9,.4
+            cols: 2
+            pos_hint: {'center_x': .5}
+            GridLabel:
+                text: 'Operation Type'
+            StatisticsSpinner:
+                id: stats_operation_spinner
+                text: '+'
+                values: ['+', '-', '*', ':', '%']
+            GridLabel:
+                text: 'Difficulty'
+            StatisticsSpinner:
+                id: stats_difficulty_spinner
+                text: '1'
+                values: ['1','2','3','4']
+            GridLabel:
+                text: 'Number of Questions'
+            Button:
+                id: stats_num_questions_button
+                text: '8'
+                on_release: app.root.statistic_screen.switch_num_questions(self, self.text)
+                # on_release: self.text = '16' if self.text == '8' else self.text = '8'
+                background_color: color_button if self.state == 'normal' else color_button_pressed
+        Button:
+            size_hint: 1, .2
+            text: 'Plot'
+            on_release: app.root.statistic_screen.show_plot()
+            font_size: min(root.width, root.height) * .1
+
+
+<PlotScreen@Screen>:
