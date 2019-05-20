@@ -341,8 +341,7 @@ class ResponseTimer(Label):
 		
 		self._start_time = 0
 		self._cur_time = datetime.timedelta(0)
-		self._pause_time = datetime.timedelta(0) 
-		self._checkpoint = None
+		self._pause_time = datetime.timedelta(0)
 		self._checkpoints = []
 		
 		self.visibility = bool(int(App.get_running_app().config.get('General', 'show_time')))
@@ -354,7 +353,6 @@ class ResponseTimer(Label):
 		self._start_time = datetime.datetime.now()
 		self._cur_time = datetime.timedelta(0)
 		self._pause_time = datetime.timedelta(0)
-		self._checkpoint = None
 		self._checkpoints = []
 		
 		self.resp_timer = Clock.schedule_interval(self._tick, 1/24)       
@@ -377,12 +375,7 @@ class ResponseTimer(Label):
 		""" return the timedelta from now to the last checkpoint, 
 			or the current total response time, if no checkpoint is defined.
 		"""
-		#if self._checkpoint:
-		#	self._checkpoint = self._cur_time - self._checkpoint
-		#else:
-		#	self._checkpoint = self._cur_time
 		self._checkpoints.append(self._cur_time)
-		#return self._checkpoint
 
 	def stop_timing(self):
 		self.resp_timer.cancel()
@@ -539,16 +532,8 @@ class CalculationScreen(Screen):
 		idx = self.current_question_index
 		true_answer = self.get_answer(idx)
 		if int(text) == true_answer:
-			# calculate time needed for this answer
-			#shot = self.response_timer.snapshot()  # type datetime.timedelta
-			#prev = sum(self.answer_times) if self.answer_times else datetime.timedelta(0)
-			#respt = shot - prev
-			#respt = self.response_timer.checkpoint()
-			#self.answer_times.append(respt)
-			#print(self.answer_times)
-			# Log the correct answer
-			#Logger.info('main.py: YAY! You calculated the correct solution. '
-			#			'{0} = {1} in {2} sec'.format(self.question_text.text, true_answer, respt))
+			Logger.info('main.py: YAY! You calculated the correct solution: '
+						'{0} = {1} '.format(self.question_text.text, true_answer))
 			# Set a checkpoint to calculate response times per question in the end.
 			self.response_timer.checkpoint()
 			
@@ -962,135 +947,3 @@ class CalculationApp(App):
 
 if __name__ in ('__main__', '__android__'):
 	CalculationApp().run()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-''' Input validation
-in App.build(): 
-		self.config.add_callback(self.config_input_validation)
-		
-		
-def config_input_validation(self, section, key, value, *args):
-		""" Callback function, which is bound to the same event as on_config_change.
-
-			It is supposed to validate the value that a user sets some setting to.
-			It is being called, but config.set and config.write just don't work.
-			
-			However, if the app is restartet, all settings that are not valid, are 
-			changed to valid values. This is realy wired!
-		"""
-		
-					
-		if section == 'General':
-			if key == 'lr_btn':
-				
-				if not(str(value) in ('Submit', 'Back', 'Joker') or value.isdigit()):
-					self.root.calculation_screen.num_pad.lr_btn_text = 'Submit'
-					self.config.set('General', 'lr_btn', 'Submit')
-					self.config.write()
-					
-
-if section == 'Math':
-			if key == 'diffclty':
-		   
-				if float(value) > 4:
-					value = '4'
-					Logger.info('Difficulty 4 is maximum')
-					#Clock.schedule_once(partial(self.config.set, 'Math', 'diffclty', value))
-					#self.config.write()
-
-					#Clock.schedule_once(self.close_settings)
-					#Clock.schedule_once(partial(self.on_config_change, self.config, 'Math', 'diffclty', value))
-					#Clock.schedule_once(self.open_settings, 1)
-					
-				if float(value) < 1:
-					value = '1'
-					Logger.info('Difficulty 1 is minimum')
-'''
-
-
-"""
-	def updatePandasData(self, *args):
-		cols = 'time_stamp,operation,difficulty,num_questions,total,average,minimum,maximum'.split(',')
-		vals = [operation, difficulty, num_questions, self.total_response_time.text, self.average_response_time.text, self.minimum_response_time.text.split('\n')[0], self.maximum_response_time.text.split('\n')[0]]
-
-		new_entry_data = {n: [d,] for n, d in zip(cols, vals)}
-		print(new_entry_data)
-		new_entry = pd.DataFrame(data=new_entry_data, columns=cols)
-		stats_df = pd.read_pickle(App.get_running_app().stats_file)
-		pd.concat([stats_df, new_entry])	# concat?
-		stats_df.to_pickle(App.get_running_app().stats_file)
-"""
-
-"""
-if PANDAS_AVAILABLE and MATPLOTLIB_AVAILABLE:
-			self.stats_file = os.path.join(self.cache_folder, 'stats.pkl')
-			#print(self.root_folder)
-
-			if not os.path.exists(self.stats_file):
-				df = pd.DataFrame(data=[], columns='operation,difficulty,num_questions,total,average,minimum,maximum'.split(',')) # header? 
-				df.to_pickle(self.stats_file)
-				Logger.info('main.py: Created new statistics file %s' % self.stats_file)
-
-"""
-
-"""
-	def createMatplotlibPlot(self, series = np.array(range(12))):
-		if self.graph_figure:
-			self.destroy()
-		fig, ax = plt.subplots()
-		ax.plot(series)
-		self.graph_figure = FigureCanvasKivyAgg(figure=fig)
-		
-		self.add_widget(self.graph_figure)
-"""
-
-"""
-		if PANDAS_AVAILABLE and MATPLOTLIB_AVAILABLE: 
-			stats_df = pd.read_pickle(App.get_running_app().stats_file)
-			#stats_a = stats[stats['operation'] == 0]
-			stats_a8 = stats_a[stats_a['questions'] == 8]
-			series = stats_df.average
-			dummy_series = np.random.randint(1, 10, (12,))
-
-			App.get_running_app().root.ids.plot_screen.createMatplotlibPlot(series)
-			App.get_running_app().root.change_screen('plot')
-
-"""
-
-"""
-
-try:
-	raise ImportError
-	import matplotlib.pyplot as plt
-	from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
-	MATPLOTLIB_AVAILABLE = True
-
-except ImportError:
-	plt = None
-	MATPLOTLIB_AVAILABLE = False
-	Logger.info("main.py: Missing matplotlib.")
-try:
-	raise ImportError
-	import pandas as pd
-	PANDAS_AVAILABLE = True
-except ImportError:
-	pd = None
-	PANDAS_AVAILABLE = False
-	Logger.info("main.py: Missing pandas.")
-
-"""
