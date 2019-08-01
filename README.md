@@ -24,9 +24,10 @@ Download and install the app via the Google Play Store.
 
 ### On Desktop/Laptop
 
-Provided you have Python 2 or 3 installed on your PC, you may clone this repository, install the dependencies and run main.py.
+Provided you have Python installed on your PC, you may clone this repository, install the dependencies and run main.py.
 
-``` git clone https://der-spaete-jo/math-tutor MentalCalculationNinja
+``` 
+	git clone https://der-spaete-jo/math-tutor MentalCalculationNinja
 	cd MentalCalculationNinja
 	pipenv install
 	pipenv run python main.py
