@@ -2,6 +2,8 @@
 
 Enter the dojo to train your mental calculation skills! 
 
+Answer a series of arithmetic questions as fast as you can. Your average response time is what counts here. But stay focused: wrong inputs slow you down. 
+
 You choose a combination of operatiors from addition (+) multiplication (*), subtraction (-), division (:) and modulo (%). You will be asked a series of 8 or 16 questions. After each Randori you will get an overview of your performance, including total and average response times. To investigate your development, have a look at the Statistics. 
 
 ## Settings
@@ -61,6 +63,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ## Contact
 
-SoftwareKater(at)gmail(dot)com
+SoftwareKater+MCN(at)gmail(dot)com
 
 Have Fun Calculating!
