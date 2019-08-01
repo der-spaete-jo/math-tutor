@@ -487,7 +487,7 @@ class CalculationScreen(Screen):
 		self.answer_times = []
 		self.answer_text.text = ''
 		# generate the whole series of questions, ...
-		self.questions = MathBackEnd.generate_random_questions(self.operation, self.difficulty, self.num_questions,)
+		self.questions = MathBackEnd.generate_random_questions(self.operation, self.difficulty, self.num_questions)
 		# draw the first question...
 		self.question_text.text = self.get_question()        
 		# and start the timer!
@@ -835,6 +835,13 @@ class CalculationApp(App):
 				'Copyright 2018 Johannes Katzer. \n'
 				'\n'
 				'[i]Have Fun Calculating![/i]')
+
+	def get_user_settings(self):		
+		app_config = self.get_running_app().config
+		operation = ''.join([str(MathBackEnd.operator_strings.index(p)) for p in list(app_config.get('Math', 'operator'))])      # \in {"0","1","2","3","4","01","23","0123"}
+		difficulty = int(app_config.get('Math', 'diffclty'))
+		num_questions = int(app_config.get('Math', 'num_of_qs'))
+		return [operation, difficulty, num_questions]
 
 	def on_ref_press(self, instance, ref):
 		references = {'kivy': 'www.kivy.org/#home', 
