@@ -837,8 +837,10 @@ class CalculationApp(App):
 				'[i]Have Fun Calculating![/i]')
 
 	def get_user_settings(self):		
+		""" Get settings to display on main menu screen
+		"""
 		app_config = self.get_running_app().config
-		operation = ''.join(list(app_config.get('Math', 'operator')))      # \in {"0","1","2","3","4","01","23","0123"}
+		operation = ''.join(list(app_config.get('Math', 'operator')))
 		difficulty = int(app_config.get('Math', 'diffclty'))
 		num_questions = int(app_config.get('Math', 'num_of_qs'))
 		return [operation, difficulty, num_questions]
