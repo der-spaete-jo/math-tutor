@@ -1,10 +1,37 @@
 
+###############################################################################
+# License
+###############################################################################
+
+# Mental Calculation Dojo
+# Copyright (C) 2019  Johannes Katzer
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
 
 ###############################################################################
 # Version
 ###############################################################################
 
 __version__ = '0.1.14'
+
+
+
+###############################################################################
+# TODO
+###############################################################################
 
 # TODO: fix game
 # introduced checkpoint method in RespTimer class. But it does not work. its only called in on_current_answer method of CalcScreen.
@@ -29,8 +56,6 @@ __version__ = '0.1.14'
 # google analytics http://cheparev.com/, http://cheparev.com/kivy-recipe-google-analytics-and-bug-monitoring/
 # and advertisements https://github.com/kivy/kivy/wiki/AdBuddiz-Android-advertisements-integration-for-Kivy-apps, also https://github.com/MichaelStott/KivMob, 
 # what can you do else? https://blog.kivy.org/2016/01/kivy-android-app%C2%A0showcase/, https://github.com/eviltnan/kognitivo
-
-
 
 
 
