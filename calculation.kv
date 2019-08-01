@@ -14,6 +14,18 @@
 <GridLabel@Label>:
     font_size: min(root.width, root.height) * .3
 
+<AboutLabel@Label>:
+    size_hint: 1, None
+    size: root.width * .7, root.height
+    #width: root.width * .7
+    text: app.get_about_text()
+    halign: 'center'
+    markup: True
+    font_size: root.height / 20
+    text_size: self.width, None
+    center_y: .5
+    on_ref_press: app.onRefPress(*args)
+
 <SpinnerLabel@SpinnerOption>:
     background_color: color_button if self.state == 'down' else color_button_pressed
     background_down: color_background_down
@@ -92,19 +104,32 @@
             halign: 'center'
             font_size: min(root.width, root.height) * .1
 
-        ScrollView:
-            #do_scroll_x: False
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 5
+            size_hint_y: None
+            #height: self.minimum_height
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    halign: 'left'
+                    text: 'Version'
+                Label:
+                    halign: 'right'
+                    text: app.get_version()
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    text: 'Source'
+                Label:
+                    text: app.get_source_url()
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    text: 'License'
+                Label:
+                    text: 'GNU GPL (https://www.gnu.org/licenses)'
 
-            Label:
-                size_hint: 1, None
-                size: root.width * .7, root.height
-                text: app.get_about_text()
-                halign: 'center'
-                markup: True
-                font_size: root.height / 20
-                text_size: self.width, None
-                center_y: .5
-                on_ref_press: app.onRefPress(*args)
 
 <ResultScreen@Screen>:
     total_response_time: total_response_time

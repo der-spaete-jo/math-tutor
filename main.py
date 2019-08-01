@@ -845,6 +845,12 @@ class CalculationApp(App):
 		num_questions = int(app_config.get('Math', 'num_of_qs'))
 		return [operation, difficulty, num_questions]
 
+	def get_version(self):
+		return '0.1.14'
+
+	def get_source_url(self):
+		return 'https://github.com/der-spaete-jo/math-tutor'
+
 	def on_ref_press(self, instance, ref):
 		references = {'kivy': 'www.kivy.org/#home', 
 						'py': 'www.python.org',
