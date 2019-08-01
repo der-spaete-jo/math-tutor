@@ -1,4 +1,4 @@
-### Mental Calculation Dojo
+# Mental Calculation Dojo
 
 Enter the dojo to train your mental calculation skills! 
 
@@ -6,11 +6,11 @@ You choose a combination of operatiors from addition (+) multiplication (*), sub
 
 ## Settings
 
-# General
+### General
 
 Customize the the functionality of the keypad. Choose which information are shown in the dojo.
 
-# Math
+### Math
 
 Change the operator, difficulty and number of questions.
 
@@ -18,11 +18,11 @@ Change the operator, difficulty and number of questions.
 
 You have different options to install Mental Calculation Ninja based on the device you are using. 
 
-# On Android Mobile Phone
+### On Android Mobile Phone
 
 Download and install the app via the Google Play Store. 
 
-# On Desktop/Laptop
+### On Desktop/Laptop
 
 Provided you have Python 2 or 3 installed on your PC, you may clone this repository, install the dependencies and run main.py.
 
