@@ -62,7 +62,7 @@
             font_size: min(root.width, root.height) * .1
 
         WrappedLabel:
-            text: 'Style: app.get_user_settings[0] \nDifficulty: app.get_user_settings[1] \nAmount: app.get_user_settings[2] \n'
+            text: 'Style: ' + str(app.get_user_settings()[0]) + '\nDifficulty: ' + str(app.get_user_settings()[1]) + '\nAmount: ' + str(app.get_user_settings()[2]) 
 
         Button:
             text: 'Randori'

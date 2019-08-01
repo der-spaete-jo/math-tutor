@@ -838,7 +838,7 @@ class CalculationApp(App):
 
 	def get_user_settings(self):		
 		app_config = self.get_running_app().config
-		operation = ''.join([str(MathBackEnd.operator_strings.index(p)) for p in list(app_config.get('Math', 'operator'))])      # \in {"0","1","2","3","4","01","23","0123"}
+		operation = ''.join(list(app_config.get('Math', 'operator')))      # \in {"0","1","2","3","4","01","23","0123"}
 		difficulty = int(app_config.get('Math', 'diffclty'))
 		num_questions = int(app_config.get('Math', 'num_of_qs'))
 		return [operation, difficulty, num_questions]
