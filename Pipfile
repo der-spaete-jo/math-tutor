@@ -7,15 +7,16 @@ name = "pypi"
 
 [packages]
 
-docutils = "*"
-pygments = "*"
 cython = "==0.24"
-"pypiwin32" = "*"
+docutils = "*"
+kivy = "*"
+"kivy-garden" = "*"
 "kivy.deps.sdl2" = "*"
 "kivy.deps.glew" = "*"
-kivy = "*"
-kivy-garden = "*"
 numpy = "*"
+pygments = "*"
+pypiwin32 = "*"
+requests = "*"
 
 
 [dev-packages]
